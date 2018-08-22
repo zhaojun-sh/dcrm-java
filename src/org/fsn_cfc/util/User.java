@@ -6,7 +6,6 @@ import org.bouncycastle.math.ec.ECPoint;
 import org.fsn_cfc.cmt.Commitment;
 import org.fsn_cfc.cmt.MTDCommitment;
 import org.fsn_cfc.cmt.Open;
-import org.fsn_cfc.fusiondcrm.FusionDCRM;
 import org.fsn_cfc.zkp.ZkpKG;
 import org.fsn_cfc.zkp.ZkpSignOne;
 import org.fsn_cfc.zkp.ZkpSignTwo;

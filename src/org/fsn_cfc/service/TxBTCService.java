@@ -222,6 +222,7 @@ public class TxBTCService {
 	    System.out.println("\nPlease paste the FUSION DCRM signed transaction to the website (https://live.blockcypher.com/btc/pushtx/#) with the Network selection of \"Bitcoin Testnet\" and press the \"BROADCAST TRANSACTION\" button.");
 	    System.out.println("\n##########################################################################################################################\n");
 
+		sc.close();
 		
 	}
 	

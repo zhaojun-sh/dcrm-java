@@ -33,7 +33,9 @@ public class DCRMTest {
         	TxETHService.run(tokenType);
         }else if(tokenType.equals("BTC")) {
         	TxBTCService.run(tokenType);
-        }
+		}
+		
+		sc.close();
 		
 	}
 	

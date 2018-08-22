@@ -3,10 +3,9 @@ package org.fsn_cfc.util;
 
 import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
-import java.security.*;
-import org.bouncycastle.jce.ECNamedCurveTable;
-import org.bouncycastle.jce.spec.ECNamedCurveParameterSpec;
-import org.bouncycastle.math.ec.ECPoint;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 import org.bouncycastle.crypto.digests.RIPEMD160Digest;
 
 

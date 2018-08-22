@@ -6,8 +6,6 @@ import java.security.SecureRandom;
 import org.fsn_cfc.util.RandomUtil;
 import org.fsn_cfc.util.OtherUtil;
 
-import uk.ac.ic.doc.jpair.api.Field;
-import uk.ac.ic.doc.jpair.api.FieldElement;
 import uk.ac.ic.doc.jpair.api.Pairing;
 import uk.ac.ic.doc.jpair.pairing.BigInt;
 import uk.ac.ic.doc.jpair.pairing.EllipticCurve;

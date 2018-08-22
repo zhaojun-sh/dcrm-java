@@ -5,20 +5,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.bouncycastle.math.ec.ECPoint;
-import org.ethereum.util.ByteUtil;
 import org.fsn_cfc.cmt.Commitment;
 import org.fsn_cfc.cmt.MTDCommitment;
 import org.fsn_cfc.cmt.Open;
 import org.fsn_cfc.util.BitcoinParams;
 import org.fsn_cfc.util.ECDSASignature;
 import org.fsn_cfc.util.OtherParams;
+import org.fsn_cfc.util.OtherUtil;
 import org.fsn_cfc.util.RandomUtil;
 import org.fsn_cfc.util.User;
 import org.fsn_cfc.zkp.ZkpKG;
 import org.fsn_cfc.zkp.ZkpSignOne;
 import org.fsn_cfc.zkp.ZkpSignTwo;
-import org.spongycastle.util.encoders.Hex;
-import org.fsn_cfc.util.OtherUtil;
 
 public class FusionDCRM {
 	
@@ -264,7 +262,6 @@ public class FusionDCRM {
 		
 		
 		BigInteger u = calculateU(userList);
-		BigInteger v = calculateV(userList);
 		
 		
 		BigInteger kI, cI, cIRnd;
