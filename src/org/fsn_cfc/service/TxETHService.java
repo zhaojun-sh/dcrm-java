@@ -41,7 +41,7 @@ public class TxETHService {
 		
 		//Generate DCRM Address
 	    byte[] xyPkByte =  pk.getEncoded(false);
-	    byte[] addressByte =  HashUtil.sha3omit12(Arrays.copyOfRange(xyPkByte, 1, xyPkByte.length));
+	    byte[] addressByte = HashUtil.sha3omit12(Arrays.copyOfRange(xyPkByte, 1, xyPkByte.length));
 	    String address = ByteUtil.bytesToBigInteger(addressByte).toString(16);
 	        
 	    
