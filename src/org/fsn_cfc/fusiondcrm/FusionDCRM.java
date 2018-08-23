@@ -368,7 +368,6 @@ public class FusionDCRM {
 		mu =  distributedDecrypt(w, userList.size()).mod(BitcoinParams.q);
 
 		BigInteger muInverse, mMultiU, rMultiV, sEnc, s;
-		System.out.println(mu);
 		muInverse = mu.modInverse(BitcoinParams.q);
 		mMultiU = OtherParams.PaillEnc.cipherMultiply(u, msgDigest);
 		rMultiV = OtherParams.PaillEnc.cipherMultiply(v, r);
