@@ -363,14 +363,19 @@ public class FusionDCRM {
 				
 		BigInteger r, mu;
 		r = R.normalize().getX().toBigInteger().mod(BitcoinParams.q);
-		mu = OtherParams.PaillDec.decrypt(w).mod(BitcoinParams.q);
-		
+
+		//mu = OtherParams.PaillDec.decrypt(w).mod(BitcoinParams.q);
+		mu =  distributedDecrypt(w, userList.size()).mod(BitcoinParams.q);
+
 		BigInteger muInverse, mMultiU, rMultiV, sEnc, s;
 		muInverse = mu.modInverse(BitcoinParams.q);
 		mMultiU = OtherParams.PaillEnc.cipherMultiply(u, msgDigest);
 		rMultiV = OtherParams.PaillEnc.cipherMultiply(v, r);
 		sEnc = OtherParams.PaillEnc.cipherMultiply(OtherParams.PaillEnc.cipherAdd(mMultiU, rMultiV), muInverse);
-		s = OtherParams.PaillDec.decrypt(sEnc).mod(BitcoinParams.q);
+		
+		
+		//s = OtherParams.PaillDec.decrypt(sEnc).mod(BitcoinParams.q);
+		s = distributedDecrypt(sEnc, userList.size()).mod(BitcoinParams.q);
 
 		signature.setRoudFiveAborted(aborted);
 		signature.setR(r);
@@ -428,9 +433,24 @@ public class FusionDCRM {
 		
 		return encX;
 	}
-	
-	
-	
+
+
+
+	private static BigInteger distributedDecrypt(BigInteger c, int userCnt){
+
+		//OtherParams.PaillDec.decrypt(w)
+		//msgTem2 = c1.multiply(c2).mod(nSPlusOne).subtract(BigInteger.ONE).divide(n);
+
+		BigInteger plainMsg = BigInteger.ONE;
+
+		BigInteger tem;
+		for(int i = 0 ; i < userCnt ; i ++){	
+			tem  = OtherParams.PaillDecThreshold.decryptThreshold(c, i, userCnt);
+			plainMsg.multiply(tem).mod(OtherParams.PaillPubKey.getNSPlusOne());
+		}
+
+		return plainMsg.subtract(BigInteger.ONE).divide(OtherParams.PaillPubKey.getN()); 
+	}
 	
 	
 	

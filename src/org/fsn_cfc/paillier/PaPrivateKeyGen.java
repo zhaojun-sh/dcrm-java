@@ -2,6 +2,7 @@ package org.fsn_cfc.paillier;
 
 import java.math.BigInteger;
 import java.security.SecureRandom;
+import org.fsn_cfc.paillier.*;
 import java.util.Random;
 
 import org.fsn_cfc.util.BitcoinParams;
@@ -52,7 +53,7 @@ public class PaPrivateKeyGen {
 
 
 
-	public static PaPrivateKey PaPrivateKeyGenThreshold(int s, long seed) {
+	public static PaPrivateKeyThreshold PaPrivateKeyGenThreshold(int s, long seed) {
 		
 		BigInteger minprm=null;
 		BigInteger maxprm=null;
@@ -89,7 +90,7 @@ public class PaPrivateKeyGen {
 		  
 		d=phin.multiply(phin.modInverse(BitcoinParams.q));
 		
-		return new PaPrivateKey(n, d, seed);
+		return new PaPrivateKeyThreshold(n, d, seed);
 	}
 
 	

@@ -9,6 +9,7 @@ import org.fsn_cfc.paillier.PaPublicKey;
 import org.fsn_cfc.paillier.Paillier;
 import org.fsn_cfc.cmt.CmtMasterPublicKey;
 import org.fsn_cfc.zkp.PublicParameters;
+import org.fsn_cfc.paillier.*;
 
 public class OtherParams {
 	
@@ -24,6 +25,7 @@ public class OtherParams {
 	
 	public static final Paillier PaillEnc;	
 	public static final Paillier PaillDec;
+	public static final PaillierThreshold PaillDecThreshold;
 	
 	public static final PublicParameters ZKParams;
 	
@@ -38,11 +40,13 @@ public class OtherParams {
 
 		
 		//paillier
-		PaillPrivKey = PaPrivateKeyGen.PaPrivateKeyGen(1024 , SecureRnd.nextLong());
+		//PaillPrivKey = PaPrivateKeyGen.PaPrivateKeyGen(1024 , SecureRnd.nextLong());
+		PaillPrivKey = PaPrivateKeyGen.PaPrivateKeyGenThreshold(1024 , SecureRnd.nextLong());
 		PaillPubKey = PaillPrivKey.getPublicKey();
 		
 		PaillEnc = new Paillier(PaillPrivKey.getPublicKey());
 		PaillDec = new Paillier(PaillPrivKey);
+		PaillDecThreshold = new PaillierThreshold(PaillPrivKey);
 		
 		
 		//zk
