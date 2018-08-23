@@ -5,20 +5,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.bouncycastle.math.ec.ECPoint;
-import org.ethereum.util.ByteUtil;
 import org.fsn_cfc.cmt.Commitment;
 import org.fsn_cfc.cmt.MTDCommitment;
 import org.fsn_cfc.cmt.Open;
 import org.fsn_cfc.util.BitcoinParams;
 import org.fsn_cfc.util.ECDSASignature;
 import org.fsn_cfc.util.OtherParams;
+import org.fsn_cfc.util.OtherUtil;
 import org.fsn_cfc.util.RandomUtil;
 import org.fsn_cfc.util.User;
 import org.fsn_cfc.zkp.ZkpKG;
 import org.fsn_cfc.zkp.ZkpSignOne;
 import org.fsn_cfc.zkp.ZkpSignTwo;
-import org.spongycastle.util.encoders.Hex;
-import org.fsn_cfc.util.OtherUtil;
 
 public class FusionDCRM {
 	
@@ -264,7 +262,6 @@ public class FusionDCRM {
 		
 		
 		BigInteger u = calculateU(userList);
-		BigInteger v = calculateV(userList);
 		
 		
 		BigInteger kI, cI, cIRnd;
@@ -366,14 +363,19 @@ public class FusionDCRM {
 				
 		BigInteger r, mu;
 		r = R.normalize().getX().toBigInteger().mod(BitcoinParams.q);
-		mu = OtherParams.PaillDec.decrypt(w).mod(BitcoinParams.q);
-		
+
+		//mu = OtherParams.PaillDec.decrypt(w).mod(BitcoinParams.q);
+		mu =  distributedDecrypt(w, userList.size()).mod(BitcoinParams.q);
+
 		BigInteger muInverse, mMultiU, rMultiV, sEnc, s;
 		muInverse = mu.modInverse(BitcoinParams.q);
 		mMultiU = OtherParams.PaillEnc.cipherMultiply(u, msgDigest);
 		rMultiV = OtherParams.PaillEnc.cipherMultiply(v, r);
 		sEnc = OtherParams.PaillEnc.cipherMultiply(OtherParams.PaillEnc.cipherAdd(mMultiU, rMultiV), muInverse);
-		s = OtherParams.PaillDec.decrypt(sEnc).mod(BitcoinParams.q);
+		
+		
+		//s = OtherParams.PaillDec.decrypt(sEnc).mod(BitcoinParams.q);
+		s = distributedDecrypt(sEnc, userList.size()).mod(BitcoinParams.q);
 
 		signature.setRoudFiveAborted(aborted);
 		signature.setR(r);
@@ -431,9 +433,22 @@ public class FusionDCRM {
 		
 		return encX;
 	}
-	
-	
-	
+
+
+
+	private static BigInteger distributedDecrypt(BigInteger c, int userCnt){
+		BigInteger plainMsg = BigInteger.ONE;
+
+		BigInteger tem;
+
+		for(int i = 0 ; i < userCnt ; i ++){	
+			tem  = OtherParams.PaillDecThreshold.decryptThreshold(c, i, userCnt);
+			plainMsg = plainMsg.multiply(tem).mod(OtherParams.PaillPubKey.getNSPlusOne());
+		}
+
+		plainMsg = plainMsg.subtract(BigInteger.ONE).divide(OtherParams.PaillPubKey.getN());
+		return plainMsg; 
+	}
 	
 	
 	

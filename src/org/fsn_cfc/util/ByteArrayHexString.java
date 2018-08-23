@@ -1,7 +1,5 @@
 package org.fsn_cfc.util;
 
-import java.util.Arrays;
-
 public class ByteArrayHexString {
 	
 	

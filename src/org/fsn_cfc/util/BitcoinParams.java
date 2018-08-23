@@ -1,7 +1,6 @@
 package org.fsn_cfc.util;
 
 import java.math.BigInteger;
-import java.security.SecureRandom;
 
 import org.bouncycastle.asn1.sec.SECNamedCurves;
 import org.bouncycastle.asn1.x9.X9ECParameters;

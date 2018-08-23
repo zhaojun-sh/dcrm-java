@@ -13,9 +13,6 @@ public class PaPrivateKey extends PaPublicKey {
 	public PaPrivateKey(BigInteger n, BigInteger d, long seed){
 		super(n, seed);
 		
-		if (!(inModNStar(d.mod(n))))
-			throw new IllegalArgumentException("d must be relatively prime to n");
-		
 		this.d = d;
 		this.dInverse = this.d.modInverse(ns);
 	}
