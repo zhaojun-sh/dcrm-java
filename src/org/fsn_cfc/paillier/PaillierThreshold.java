@@ -31,11 +31,9 @@ public class PaillierThreshold extends Paillier{
 			dPrivKeyList = manuallySplitPrivKey(privKey, userCnt);
 		}
 
-		BigInteger curPrivKey = dPrivKeyList.get(userIndex);
+		BigInteger curDPrivKey = dPrivKeyList.get(userIndex);
 
-		return c.modPow(curPrivKey, this.publicKey.getNSPlusOne());
-
-		//BigInteger msgTem2 = c1.multiply(c2).mod(nSPlusOne).subtract(BigInteger.ONE).divide(n);
+		return c.modPow(curDPrivKey, this.publicKey.getNSPlusOne());
 	}
 
 
@@ -50,7 +48,7 @@ public class PaillierThreshold extends Paillier{
 		BigInteger sum =  BigInteger.ZERO;
 		for(int i = 0 ; i < userCnt - 1 ; i ++){
 			tem =  new BigInteger(dPrivKeyLen, this.publicKey.getRnd());
-			sum.add(tem);
+			sum = sum.add(tem);
 			dPrivKeyList.add(tem);
 		}
 

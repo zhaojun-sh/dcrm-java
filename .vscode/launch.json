@@ -4,7 +4,16 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
-        
+        {
+            "type": "java",
+            "name": "Debug (Launch)",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal",
+            "stopOnEntry": false,
+            "mainClass": "org.fsn_cfc.paillier.TestPaillier",
+            "args": ""
+        },
         {
             "type": "java",
             "name": "Debug (Launch)",
